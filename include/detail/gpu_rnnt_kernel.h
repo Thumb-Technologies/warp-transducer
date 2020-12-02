@@ -155,10 +155,15 @@ __global__ void compute_grad_kernel(Tp* grads, const Tp* const acts, const Tp* c
     const int T = xlen[mb];
     const int U = ylen[mb] + 1;
     const int* labels = mlabels + mb * (maxU - 1);
-
+     
     if (t < T && u < U) {
         while (idx < alphabet_size) {
-            Tp logpk = denom[col] + acts[col * alphabet_size + idx];
+             long long int tempIdx = col;
+             long long int alpha = alphabet_size;
+            tempIdx = tempIdx * alpha + idx;
+        
+            //Tp logpk = denom[col] + acts[col * alphabet_size + idx];
+            Tp logpk = denom[col] + acts[tempIdx];
             // Tp logpk = logp(denom, acts, maxT, maxU, alphabet_size, mb, t, u, idx);
             Tp grad = exp(alphas[col] + betas[col] + logpk - logll[mb]);
             // grad to last blank transition
