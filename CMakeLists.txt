@@ -18,7 +18,7 @@ ENDIF()
 include_directories(include)
 
 FIND_PACKAGE(CUDA)
-MESSAGE(STATUS "cuda found ${CUDA_FOUND}")
+MESSAGE(STATUS "cuda found  ${CUDA_FOUND} ${CUDA_VERSION}")
 
 option(USE_NAIVE_KERNEL "use naive alpha-beta kernel" OFF)
 option(DEBUG_TIME "output kernel time" OFF)
@@ -69,7 +69,7 @@ IF (CUDA_VERSION GREATER 9.9)
 ENDIF()
 
 IF (CUDA_VERSION GREATER 10.9)
-    set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -arch=sm_52")
+    set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -arch=sm_80")
     set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_80,code=sm_80")
     set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_86,code=sm_86")
     set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_86,code=compute_86")
